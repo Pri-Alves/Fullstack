@@ -1,13 +1,15 @@
 package io.github.PriAlves.clientes.model.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Getter@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +24,8 @@ public class Cliente {
     @Column(name = "data_cadastro")
     private LocalDate dataCadastro;
 
+    @PrePersist
+    public void prePersist(){
+        setDataCadastro(LocalDate.now());
+    }
 }
