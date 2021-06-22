@@ -1,9 +1,13 @@
 package io.github.PriAlves.clientes.model.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Getter@Setter
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,4 +21,5 @@ public class Cliente {
 
     @Column
     private LocalDate dataCadastro;
+    
 }
