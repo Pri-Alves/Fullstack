@@ -31,4 +31,17 @@ public class ClienteController {
                 .findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)); //ele busca por id e se estiver ok returna 200, caso nao encontre retorna um 404 not found
     }
+
+    @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT) //código 204 de sucesso
+    public void deletar( @PathVariable Integer id) {
+        //repository.deleteById(id); seria uma opção mais curta porem impede as tratativas de exception
+        repository
+                .findById(id)
+                .map( cliente -> { //map mapeia um objeto para fazer algo com ele, nesse casl mapeia o cliente para podermos deleta-lo
+                    repository.delete(cliente);
+                    return Void.TYPE; //o retorno será void para não ficar sem retorno, pois o retorno nulo pode gerar uma exception
+                })
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)); //ele busca por id e se estiver ok returna 200, caso nao encontre retorna um 404 not found
+    }
 }
