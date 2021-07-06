@@ -33,7 +33,7 @@ public class ClienteController {
     }
 
     @DeleteMapping("{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT) //código 204 de sucesso
+    @ResponseStatus(HttpStatus.NO_CONTENT) //204 código de sucesso
     public void deletar( @PathVariable Integer id) {
         //repository.deleteById(id); seria uma opção mais curta porem impede as tratativas de exception
         repository
