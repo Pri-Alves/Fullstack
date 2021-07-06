@@ -44,4 +44,16 @@ public class ClienteController {
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)); //ele busca por id e se estiver ok returna 200, caso nao encontre retorna um 404 not found
     }
+
+    @PutMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT) //204 código de sucesso
+    public void atualizar( @PathVariable Integer id, @RequestBody Cliente clienteAtualizado){
+        repository
+                .findById(id)
+                .map( cliente -> {
+                    clienteAtualizado.setId(cliente.getId());
+                    return repository.save(clienteAtualizado); //save salva o cliente atualizado
+                })
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)); //ele busca por id e se estiver ok returna 200, caso nao encontre retorna um 404 not found
+    }
 }
