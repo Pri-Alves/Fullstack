@@ -1,5 +1,6 @@
 package io.github.PriAlves.clientes.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
@@ -7,9 +8,9 @@ import java.time.LocalDate;
 
 @Entity
 @Getter@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@NoArgsConstructor //para manter um construtor sem argumentos
+@AllArgsConstructor //gera um construtor com todos os argumentos
+@Builder //acesso ao padrão builder de ciente para criar um cliente de forma mais facil
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,10 +23,11 @@ public class Cliente {
     private String cpf;
 
     @Column(name = "data_cadastro")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataCadastro;
 
-    @PrePersist
+    @PrePersist // executa esse método antes de persistir no BD
     public void prePersist(){
-        setDataCadastro(LocalDate.now());
+        setDataCadastro(LocalDate.now()); //data de cadastro atual
     }
 }
