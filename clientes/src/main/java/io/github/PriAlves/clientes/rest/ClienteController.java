@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
+
 @RestController //controller + responseBody
 @RequestMapping ("/api/clientes") //mapear a URL base que será tratada dentro do controller
 public class ClienteController {
@@ -21,7 +23,7 @@ public class ClienteController {
 
     @PostMapping //requisisão do tipo POST
     @ResponseStatus(HttpStatus.CREATED) //retornar o status created quando salvar um novo cliente no servidor
-    public Cliente salvar ( @RequestBody Cliente cliente){ //@RequestBody para dizer que o novo cliente será passado por json no corpo da requisição
+    public Cliente salvar ( @RequestBody @Valid Cliente cliente){ //@RequestBody para dizer que o novo cliente será passado por json no corpo da requisição
         return repository.save(cliente);
     }
 
