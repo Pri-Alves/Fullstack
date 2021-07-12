@@ -31,7 +31,7 @@ public class ClienteController {
     public Cliente acharPorId(@PathVariable Integer id){ //@PathVariable("id") informar o ("id") é opcional porque o nome da url é igual ao da variavel
         return repository
                 .findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)); //ele busca por id e se estiver ok returna 200, caso nao encontre retorna um 404 not found
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado")); //ele busca por id e se estiver ok returna 200, caso nao encontre retorna um 404 not found
     }
 
     @DeleteMapping("{id}")
@@ -44,7 +44,7 @@ public class ClienteController {
                     repository.delete(cliente);
                     return Void.TYPE; //o retorno será void para não ficar sem retorno, pois o retorno nulo pode gerar uma exception
                 })
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)); //ele busca por id e se estiver ok returna 200, caso nao encontre retorna um 404 not found
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado")); //ele busca por id e se estiver ok returna 200, caso nao encontre retorna um 404 not found
     }
 
     @PutMapping("{id}")
@@ -56,6 +56,6 @@ public class ClienteController {
                     clienteAtualizado.setId(cliente.getId());
                     return repository.save(clienteAtualizado); //save salva o cliente atualizado
                 })
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)); //ele busca por id e se estiver ok returna 200, caso nao encontre retorna um 404 not found
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado")); //ele busca por id e se estiver ok returna 200, caso nao encontre retorna um 404 not found
     }
 }
